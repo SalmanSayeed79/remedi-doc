@@ -1,16 +1,34 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import { Typography,Box,Avatar,Button, TextField } from '@mui/material'
 import InfoIcon from '@mui/icons-material/Info';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import PreviewIcon from '@mui/icons-material/Preview';
 import DetailsIcon from '@mui/icons-material/Details';
+import { auth,db } from '../firebase';
+import { AuthContext } from '../App';
+import { SettingsSuggestRounded } from '@mui/icons-material';
 export default function Account() {
     const [showAccountInformation,setShowAccountInformation]=useState(false)
     const [showPrevOrders,setShowPrevOrders]=useState(false)
     const [showCurrentOrders,setShowCurrentOrders]=useState(false)
     const [showChangePassword,setShowChangePassword]=useState(false)
     const [showChangeDetails,setShowChangeDetails]=useState(false)
+    const [user,setUser]=useState(null)
+    const getUser=()=>{
+        auth.onAuthStateChanged(user=>{
+            console.log(user.email)
+            setUser(user)
+        }).then(user=>{
+            db.collection("doctors").doc(user).get().then(data=>console.log(data))
+        })
+    }
+    const logout=()=>{
+        auth.signOut()
+    }
+    useEffect(() => {
+        getUser()
+    }, [])
     return (
         <Box sx={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",width:"100vw", minHeight:"100vh",backgroundColor:"#f4f4f4",marginTop:{md:"7vh"}}}>
             <Typography variant="h3" color="primary" sx={{marginTop:"1rem"}}>Your Account</Typography>
@@ -28,7 +46,7 @@ export default function Account() {
                     Your account information
                 </Button>
                 {showAccountInformation && 
-                    <Box sx={{backgroundColor:"#ff4081",display:"flex",flexDirection:"column",alignItems:"flex-start",justifyContent:"center",width:"80vw",minHeight:"20vh",border:"1px solid #2196f3",padding:"1rem 0"}}>
+                    <Box sx={{backgroundColor:"#ff4081",display:"flex",flexDirection:"column",alignItems:"flex-start",justifyContent:"center",width:"80vw",minHeight:"20vh",border:"1px solid #ff4081",padding:"1rem 0"}}>
                         
                         <Typography color="#f4f4f4" sx={{marginLeft:"1rem"}}>First Name : Salman</Typography>
                         <Typography color="#f4f4f4" sx={{marginLeft:"1rem"}}>Last Name : Sayeed</Typography>
@@ -42,23 +60,13 @@ export default function Account() {
                 
                     </Box>
                 }
-                {/**Previous Orders */}
-                <Button variant="outlined" fullWidth sx={{minHeight:"7vh"}}>
-                    <PreviewIcon/>
-                    Your previous orders
-                </Button>
-                {/**Current Orders */}
-                <Button variant="outlined" fullWidth sx={{minHeight:"7vh"}}>
-                    <StarBorderIcon/>
-                    Track current orders
-                </Button>
                 {/**Change Password */}
                 <Button variant="outlined" fullWidth sx={{minHeight:"7vh"}} onClick={()=>{setShowChangePassword(!showChangePassword)}}>
                     <VpnKeyIcon/>
                     Change Password
                 </Button>
                 {showChangePassword && 
-                    <Box sx={{backgroundColor:"#ff4081",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",width:"80vw",minHeight:"20vh",border:"1px solid #2196f3",padding:"1rem 0"}}>
+                    <Box sx={{backgroundColor:"#ff4081",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",width:"80vw",minHeight:"20vh",border:"1px solid #ff4081",padding:"1rem 0"}}>
                         <Typography variant="h5" sx={{margin:"1rem 0"}} color="#f4f4f4">Change Password</Typography>
                         <Box sx={{width:"75vw",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center"}}>
                             <TextField type="password" fullWidth placeholder="Current Password" sx={{backgroundColor:"#f4f4f4"}}></TextField>
@@ -73,8 +81,13 @@ export default function Account() {
                     <DetailsIcon/>
                     Change Your Details
                 </Button>
+                {/**Log Out */}
+                <Button variant="outlined" fullWidth sx={{minHeight:"7vh"}} onClick={logout}>
+                    <PreviewIcon/>
+                    Log Out
+                </Button>
                 {showChangeDetails && 
-                    <Box sx={{backgroundColor:"#ff4081",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",width:"80vw",minHeight:"20vh",border:"1px solid #2196f3",padding:"1rem 0"}}>
+                    <Box sx={{backgroundColor:"#ff4081",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",width:"80vw",minHeight:"20vh",border:"1px solid #ff4081",padding:"1rem 0"}}>
                         <Typography variant="h5" sx={{margin:"1rem 0",textAlign:"center"}} color="#f4f4f4">Change Account Information</Typography>
                         <Box sx={{width:"75vw",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center"}}>
                             <TextField fullWidth placeholder="First Name" sx={{backgroundColor:"#f4f4f4"}}></TextField>
@@ -92,5 +105,7 @@ export default function Account() {
                 }
             </Box>
         </Box>
+    
+
     )
 }
