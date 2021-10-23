@@ -6,7 +6,7 @@ import {auth,db} from '../firebase'
 const createAccounts=()=>{
     doctors.forEach((item)=>{
         //auth.createUserWithEmailAndPassword(item.email,"test1234")
-        if(item){
+     
             db.collection("doctors").doc(item.email).set({
                 id: item.id,
                 name: item.name,
@@ -16,7 +16,8 @@ const createAccounts=()=>{
                 address: item.address,
                 zip: item.zip
             })
-        }
+  
+     
     })
 }
 export default function Home() {

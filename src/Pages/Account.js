@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react'
-import { Typography,Box,Avatar,Button, TextField } from '@mui/material'
+import { Typography,Box,Avatar,Button, TextField,CircularProgress } from '@mui/material'
 import InfoIcon from '@mui/icons-material/Info';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
@@ -8,55 +8,59 @@ import DetailsIcon from '@mui/icons-material/Details';
 import { auth,db } from '../firebase';
 import { AuthContext } from '../App';
 import { SettingsSuggestRounded } from '@mui/icons-material';
-export default function Account() {
+export default function Account(props) {
     const [showAccountInformation,setShowAccountInformation]=useState(false)
     const [showPrevOrders,setShowPrevOrders]=useState(false)
     const [showCurrentOrders,setShowCurrentOrders]=useState(false)
     const [showChangePassword,setShowChangePassword]=useState(false)
     const [showChangeDetails,setShowChangeDetails]=useState(false)
-    const [user,setUser]=useState(null)
-    const getUser=()=>{
-        auth.onAuthStateChanged(user=>{
-            console.log(user.email)
-            setUser(user)
-        }).then(user=>{
-            db.collection("doctors").doc(user).get().then(data=>console.log(data))
+    const [userData,setUserData]=useState(null)
+    const [loading,setLoading]=useState(true)
+    const getData=()=>{
+        console.log(props.acc)
+
+        db.collection("doctors").doc(props.acc).get().then(doc=>{
+            if(doc.exists){
+                console.log(doc.data())
+                setUserData(doc.data())
+                setLoading(false)
+            }
         })
     }
     const logout=()=>{
         auth.signOut()
     }
     useEffect(() => {
-        getUser()
+        getData()
     }, [])
     return (
-        <Box sx={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",width:"100vw", minHeight:"100vh",backgroundColor:"#f4f4f4",marginTop:{md:"7vh"}}}>
-            <Typography variant="h3" color="primary" sx={{marginTop:"1rem"}}>Your Account</Typography>
+        <Box >
+            {!loading && <Box sx={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",width:"100vw", minHeight:"100vh",backgroundColor:"#f4f4f4",marginTop:{md:"7vh"}}}>
+        <Typography variant="h3" color="primary" sx={{marginTop:"1rem"}}>Your Account</Typography>
             <Typography variant="p"   sx={{marginBottom:"1rem"}}>Your account information</Typography>
-            <Box sx={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",marginBottom:"2rem"}}>
-                <Avatar alt="Salman Sayeed" src="/static/images/avatar/1.jpg" sx={{width:{xs:"30vw",md:"7vw"},height:{xs:"30vw",md:"7vw"}}}/>
-                <Typography variant="h5">Salman Sayeed</Typography>
-                <Typography variant="p" color="#8f8f8f">Rd No 13 , Dhanmondi</Typography>
+            {userData && <Box sx={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",marginBottom:"2rem"}}>
+                <Avatar alt={userData.name} src="/static/images/avatar/1.jpg" sx={{width:{xs:"30vw",md:"7vw"},height:{xs:"30vw",md:"7vw"}}}/>
+                <Typography variant="h5">{userData.name}</Typography>
+                <Typography variant="p" color="#8f8f8f">{userData.specilization}</Typography>
                 <Typography variant="h5"></Typography>
-            </Box>
+            </Box>}
             <Box sx={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",width:"80vw",marginBottom:{xs:"8vh",md:"0"}}}>
                 {/**Account Information */}
                 <Button variant="outlined" fullWidth sx={{minHeight:"7vh"}} onClick={()=>setShowAccountInformation(!showAccountInformation)}>
                     <InfoIcon />
                     Your account information
                 </Button>
-                {showAccountInformation && 
+                {showAccountInformation && userData &&
                     <Box sx={{backgroundColor:"#ff4081",display:"flex",flexDirection:"column",alignItems:"flex-start",justifyContent:"center",width:"80vw",minHeight:"20vh",border:"1px solid #ff4081",padding:"1rem 0"}}>
                         
-                        <Typography color="#f4f4f4" sx={{marginLeft:"1rem"}}>First Name : Salman</Typography>
-                        <Typography color="#f4f4f4" sx={{marginLeft:"1rem"}}>Last Name : Sayeed</Typography>
-                        <Typography color="#f4f4f4" sx={{marginLeft:"1rem"}}>Phone Number  : 01521561688</Typography>
-                        <Typography color="#f4f4f4" sx={{marginLeft:"1rem"}}>Region  : 13</Typography>
-                        <Typography color="#f4f4f4" sx={{marginLeft:"1rem"}}>Area  : Dhanmondi</Typography>
-                        <Typography color="#f4f4f4" sx={{marginLeft:"1rem"}}>Zone  : Kalabagan (15)</Typography>
-                        <Typography color="#f4f4f4" sx={{marginLeft:"1rem"}}>City  : Dhaka</Typography>
+                        <Typography color="#f4f4f4" sx={{marginLeft:"1rem"}}>Name : {userData.name}</Typography>
+                        <Typography color="#f4f4f4" sx={{marginLeft:"1rem"}}>Phone Number  : +8801521561688</Typography>
+                        <Typography color="#f4f4f4" sx={{marginLeft:"1rem"}}>Specilization  : {userData.specilization}</Typography>
+                        <Typography color="#f4f4f4" sx={{marginLeft:"1rem"}}>Borough  : {userData.borough}</Typography>
+                        <Typography color="#f4f4f4" sx={{marginLeft:"1rem"}}>Address  : {userData.address}</Typography>
+                        <Typography color="#f4f4f4" sx={{marginLeft:"1rem"}}>Zip Code  : {userData.zip}</Typography>
                         <Typography color="#f4f4f4" sx={{marginLeft:"1rem"}}>Gender : Male</Typography>
-                        <Typography color="#f4f4f4" sx={{marginLeft:"1rem"}}>Email : salmansayeed5345@gmail.com</Typography>
+                        <Typography color="#f4f4f4" sx={{marginLeft:"1rem"}}>Email : {userData.email}</Typography>
                 
                     </Box>
                 }
@@ -104,6 +108,8 @@ export default function Account() {
                     </Box>
                 }
             </Box>
+            </Box>}
+            {loading && <Box sx={{width:"100vw",height:"100vh",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center"}}><CircularProgress /><Typography>Loading .... </Typography></Box>}
         </Box>
     
 

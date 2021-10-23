@@ -1,8 +1,9 @@
 import logo from './logo.svg';
 import './App.css';
 import React , {useState, useContext,createContext} from 'react'
+
 import {BrowserRouter,Switch,Route} from 'react-router-dom'
-import {ThemeProvider} from '@mui/material'
+import {ThemeProvider,Box,CircularProgress,Typography} from '@mui/material'
 import {createTheme} from '@mui/material/styles'
 import Home from './Pages/Home';
 import Appbar from './Components/Appbar';
@@ -41,10 +42,13 @@ const theme=createTheme({
   },
 })
 export default function App() {
+  const [loading,setLoading]=useState(true)
   const [user,setUser]=React.useState(null)
   React.useEffect(()=>{
+    
     auth.onAuthStateChanged(user=>{
       setUser(user)
+      setLoading(false)
     })
   },[user])
   const AuthContext=createContext()
@@ -52,17 +56,18 @@ export default function App() {
   return (
     <AuthContext.Provider value={auth}>
       <ThemeProvider theme={theme}>
-      {!user && <Login />}
-      {user && <BrowserRouter>
+      {!loading && !user && <Login />}
+      {!loading && user && <BrowserRouter>
         <Appbar/>
         <Switch>
           <Route component={Home} exact path="/home"/>
           <Route component={Home} exact path="/"/>
-          <Route component={Account} exact path="/account"/>
+          <Route render={() => <Account acc={user.email}/>} exact path="/account"/>
           <Route component={Patients} exact path="/patients"/>
           <Route component={PatientDetail} exact path="/patients/:id"/>
         </Switch>
       </BrowserRouter>}
+      {loading && <Box sx={{width:"100vw",height:"100vh",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center"}}><CircularProgress /><Typography>Loading .... </Typography></Box>}
     </ThemeProvider>
     </AuthContext.Provider>
   );
