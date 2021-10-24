@@ -45,14 +45,14 @@ This is exactly where "Heal-On" comes in. We have solved the challenges that bot
 
 ## Features
 
-Some of the note-worthy features of "Solaris" are :
+Some of the note-worthy features of "Heal-On Doc" are :
 
-- Functionallity to use any location of the world
-- Ability to attain solar data from NASA's POWER API
-- Showing average sunlight on a monthly and yearly basis
-- Calculating optimal tilt angle for a particular location 
-- Showing verdicts for farmers based on the value range 
-- Showing rainfall data 
+- Functionallity to authenticate doctors
+- Ability to track patients on a live feed
+- Showing the medical history of a every patient
+- Ability to toggle a patient as critical or normal 
+- Showing options for doctors to take actions 
+
 
 
 ### Desktop and mobile UI
