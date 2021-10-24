@@ -10,6 +10,7 @@ export default function Patients({docKey}) {
     const [patients,setPatients]=React.useState([])
   
     const getPatients=()=>{
+        
         fetch(`http://151.106.113.197/get-patient-data?key=${docKey}`).then(res=>res.json()).then(data=>{
             console.log(data)
             data.forEach(a=>{
