@@ -16,12 +16,13 @@ import TimelineConnector from '@mui/lab/TimelineConnector';
 import TimelineContent from '@mui/lab/TimelineContent';
 import TimelineDot from '@mui/lab/TimelineDot';
 export default function Home({match}) {
+    const patientKey=match.params.id
     const [tabIndex,setTabIndex]=React.useState(1)
     const tabChange=(event,newValue)=>{
         setTabIndex(newValue)
     }
     //let {param}=useParams()
-    console.log(match.params)
+    console.log(match.params.id)
     return (
         <Box > 
             <Box sx={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",width:"100vw", minHeight:"100vh",backgroundColor:"#f4f4f4",marginTop:{md:"7vh"}}}>
@@ -113,6 +114,9 @@ export default function Home({match}) {
               </TabPanel>
               <TabPanel value="3">
                 <Box sx={{width:"80vw",display:"flex",flexDirection:"column",alignItems:"center"}}>
+                    <Button variant="contained" fullWidth sx={{marginBottom:"1vh"}} size="large"><Typography variant="h6" onClick={()=>{
+                      fetch(`http://151.106.113.197/toggle-emergency?key=${patientKey}`)
+                    }}>Toggle Critical</Typography></Button>
                     <Button variant="contained" fullWidth sx={{marginBottom:"1vh"}} size="large"><Typography variant="h6">Call Patient</Typography></Button>
                     <Button variant="contained" fullWidth sx={{marginBottom:"1vh"}} size="large"><Typography variant="h6">Set Appointment</Typography></Button>
                     <Button variant="contained" fullWidth sx={{marginBottom:"1vh"}} size="large"><Typography variant="h6">Create Test</Typography></Button>

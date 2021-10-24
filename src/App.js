@@ -11,7 +11,8 @@ import Account from './Pages/Account'
 import Patients from './Pages/Patients'
 import PatientDetail from './Pages/PatientDetail'
 import Login from './Pages/Login';
-import { auth } from './firebase';
+import { auth,db } from './firebase';
+import Critical from './Pages/Critical';
 
 const theme=createTheme({
   palette:{
@@ -44,12 +45,19 @@ const theme=createTheme({
 export default function App() {
   const [loading,setLoading]=useState(true)
   const [user,setUser]=React.useState(null)
+  const [docKey,setDocKey]=React.useState(null)
   React.useEffect(()=>{
-    
     auth.onAuthStateChanged(user=>{
       setUser(user)
+      db.collection("doctors").doc(user.email).get()
+      .then(data=>{
+        if(data.exists){
+            setDocKey(data.data().id)
+        }
+      })
       setLoading(false)
     })
+   
   },[user])
   const AuthContext=createContext()
   
@@ -63,7 +71,8 @@ export default function App() {
           <Route component={Home} exact path="/home"/>
           <Route render={() => <Home/>} exact path="/"/>
           <Route render={() => <Account acc={user.email}/>} exact path="/account"/>
-          <Route component={Patients} exact path="/patients"/>
+          <Route render={() => <Patients docKey={docKey}/>} exact path="/patients"/>
+          <Route component={Critical} exact path="/critical"/>
           <Route component={PatientDetail} exact path="/patients/:id"/>
         </Switch>
       </BrowserRouter>}

@@ -7,7 +7,7 @@ import WarningIcon from '@mui/icons-material/Warning';
 import PersonIcon from '@mui/icons-material/Person';
 
 export default function Appbar() {
-    const [active,setActive]=useState(3)
+    const [active,setActive]=useState(0)
     const history=useHistory()
     const HomeClick=()=>{
         setActive(0)
