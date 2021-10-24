@@ -49,12 +49,15 @@ export default function App() {
   React.useEffect(()=>{
     auth.onAuthStateChanged(user=>{
       setUser(user)
-      db.collection("doctors").doc(user.email).get()
-      .then(data=>{
-        if(data.exists){
-            setDocKey(data.data().id)
-        }
-      })
+      if(user){
+        db.collection("doctors").doc(user.email).get()
+        .then(data=>{
+          if(data.exists){
+              setDocKey(data.data().id)
+          }
+        })
+      }
+      
       setLoading(false)
     })
    

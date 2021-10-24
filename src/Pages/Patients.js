@@ -37,7 +37,7 @@ export default function Patients({docKey}) {
             
             </Box>
         </Box>}
-        {loading && <Box sx={{width:"100vw",height:"100vh",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center"}}><CircularProgress /><Typography>Loading .... </Typography></Box>}
+        {loading && <Box sx={{width:"100vw",height:"100vh",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center"}}><CircularProgress /><Typography>Loading Patient Data.... </Typography></Box>}
         </Box>
         )
 }

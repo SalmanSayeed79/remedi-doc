@@ -29,7 +29,7 @@ export default function Appbar() {
         <AppBar color="default" position="fixed" sx={{ top: {xs:'auto',md:0}, bottom: {xs:0,md:"auto" }}}>
             <Toolbar sx={{display:"flex",alignItems:"center",justifyContent:"space-around"}}>
                 <Box sx={{display:{xs:"none",md:"flex"},flex:".8"}}>
-                    <Typography color="primary" variant="h4">HealOn</Typography>
+                    <Typography color="primary" variant="h4">Heal-On</Typography>
                 </Box>
                 <Button onClick={HomeClick} color="inherit" sx={{display:"flex",flexDirection:{xs:"column",md:"row"}}}>
                     {active==0 ? <HomeIcon color="primary" sx={{display:{xs:"flex",md:"none"}}}/> : <HomeIcon sx={{display:{xs:"flex",md:"none"}}}/>}

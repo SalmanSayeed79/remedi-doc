@@ -51,7 +51,7 @@ export default function Home({match}) {
               <Typography variant="h3" color="primary">Dermaitis</Typography>
               <Typography variant="p" fontFamily="Bree Serif">Started Treatment : 25 Mar 2018</Typography>
             </Box>
-            <Box sx={{ width: "80vw", typography: 'body1' }}>
+            <Box sx={{ width: {xs:"90vw",md:"80vw"}, typography: 'body1' }}>
             <TabContext value={tabIndex}>
               <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                 <TabList onChange={tabChange} aria-label="lab API tabs example" variant="scrollable">
@@ -107,7 +107,7 @@ export default function Home({match}) {
               </Accordion>))}
               </TabPanel>
               <TabPanel value="3">
-                <Box sx={{width:"80vw",display:"flex",flexDirection:"column",alignItems:"center"}}>
+                <Box sx={{width:{xs:"90vw",md:"80vw"},display:"flex",flexDirection:"column",alignItems:"center"}}>
                     <Button variant="contained" fullWidth sx={{marginBottom:"1vh"}} size="large"><Typography variant="h6" onClick={()=>{
                       fetch(`http://151.106.113.197/toggle-emergency?key=${patientKey}`)
                     }}>Toggle Critical</Typography></Button>
@@ -120,7 +120,7 @@ export default function Home({match}) {
             </TabContext>
           </Box>
             </Box>}
-            {loading && <Box sx={{width:"100vw",height:"100vh",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center"}}><CircularProgress /><Typography>Loading .... </Typography></Box>}
+            {loading && <Box sx={{width:"100vw",height:"100vh",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center"}}><CircularProgress /><Typography>Loading Patient Data.... </Typography></Box>}
         </Box>
     )
 }

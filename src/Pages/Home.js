@@ -27,7 +27,7 @@ export default function Home() {
         <Box> 
             <Box sx={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",width:"100vw", minHeight:"100vh",backgroundColor:"white",marginTop:{md:"7vh"}}}>
                 <Typography variant="h3" color="primary">
-                HealOn
+                Heal-On
                 </Typography>
                 <Typography>
                     Welcome to the doctor end of HealOn
@@ -70,7 +70,7 @@ export default function Home() {
             <Box sx={{display:"flex",flexDirection:{xs:"column",md:"row"},alignItems:"center",justifyContent:"space-around",width:"100vw", minHeight:"10vh",backgroundColor:"#FFFFFF",marginBottom:{xs:"10vh",md:"0"}}}>
                 <Box>
                     <Typography variant="p" sx={{maxWidth:"80vw",textAlign:"center"}}>
-                    All rights reserved - HealOn 2021
+                    All rights reserved - Heal-On 2021
                     </Typography>
                 
                 </Box>
