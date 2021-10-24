@@ -104,10 +104,10 @@ Patient Actions
 
 ### Resources
 ---
+* Heal-On Mobile app : [Apk drive link](https://drive.google.com/file/d/1pagePYKzNyCkn-V0rmItLDLlEu1QKqDt/view?usp=sharing)
+* Heal-On Mobile app repo: [Github repo for Heal-On mobile app](https://github.com/zarifikram/heal_on)
 * Heal-On web app : [Heal-On web homepage](https://remedi-doc.web.app/)
 * Heal-On web app repo : [Github repo for Heal-On web app](https://github.com/SalmanSayeed79/remedi-doc)
-* Heal-On Mobile app : [Apk drive link]()
-* Heal-On Mobile app repo: [Github repo for Heal-On mobile app]()
 * Heal-On Backend : [Github repo for Heal-On Backend](https://github.com/pptx704/pitt-challenge)
 
 
