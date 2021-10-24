@@ -1,5 +1,5 @@
 import React from 'react'
-import {Paper,Box,Avatar,Typography, Divider,Button} from "@mui/material"
+import {Paper,Box,Avatar,Typography, Divider,Button,Chip} from "@mui/material"
 import { useHistory } from 'react-router-dom'
 export default function PatientCard() {
     const history=useHistory()
@@ -21,6 +21,7 @@ export default function PatientCard() {
                 <Typography variant="p" sx={{fontFamily:"Bree Serif"}}>Age : 36yrs</Typography>
                 <Typography variant="p" sx={{fontFamily:"Bree Serif"}}>Height : 1.7m</Typography>
                 <Typography variant="p" sx={{fontFamily:"Bree Serif"}}>Weight : 68kg</Typography>
+                <Chip label="Emergency" color="primary" sx={{margin:"1vh 0"}}/>
             </Box>
     
             <Button variant="contained" sx={{margin:"3vh 0"}}>

@@ -22,6 +22,8 @@ export default function Login() {
                     <Button variant="contained" color="primary" size="large" onClick={e=>{
                         auth.signInWithEmailAndPassword(email,password).then(user=>{
                             console.log(user)
+                        }).catch(e=>{
+                            alert("User not found. Please enter a valid email and password")
                         })
                     }}>Login</Button>
                 </Box>

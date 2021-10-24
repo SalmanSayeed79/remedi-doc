@@ -1,5 +1,6 @@
 import React from 'react'
-import {Box,Typography,Avatar,Toolbar,IconButton,Button} from "@mui/material"
+import { useParams } from 'react-router-dom';
+import {Box,Typography,Avatar,Toolbar,IconButton,Button,Chip} from "@mui/material"
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
@@ -14,11 +15,13 @@ import TimelineSeparator from '@mui/lab/TimelineSeparator';
 import TimelineConnector from '@mui/lab/TimelineConnector';
 import TimelineContent from '@mui/lab/TimelineContent';
 import TimelineDot from '@mui/lab/TimelineDot';
-export default function Home() {
+export default function Home({match}) {
     const [tabIndex,setTabIndex]=React.useState(1)
     const tabChange=(event,newValue)=>{
         setTabIndex(newValue)
     }
+    //let {param}=useParams()
+    console.log(match.params)
     return (
         <Box > 
             <Box sx={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",width:"100vw", minHeight:"100vh",backgroundColor:"#f4f4f4",marginTop:{md:"7vh"}}}>
@@ -48,6 +51,7 @@ export default function Home() {
                     <Typography variant="p">Weight : 68kg</Typography>
                     <Typography variant="p">Gender : Male</Typography>
                     <Typography variant="p">Address : Dhanmondi,Dhaka 1209</Typography>
+                    
                 </Box>
               </TabPanel>
               <TabPanel value="2">

@@ -7,7 +7,7 @@ import WarningIcon from '@mui/icons-material/Warning';
 import PersonIcon from '@mui/icons-material/Person';
 
 export default function Appbar() {
-    const [active,setActive]=useState(0)
+    const [active,setActive]=useState(3)
     const history=useHistory()
     const HomeClick=()=>{
         setActive(0)
@@ -29,7 +29,7 @@ export default function Appbar() {
         <AppBar color="default" position="fixed" sx={{ top: {xs:'auto',md:0}, bottom: {xs:0,md:"auto" }}}>
             <Toolbar sx={{display:"flex",alignItems:"center",justifyContent:"space-around"}}>
                 <Box sx={{display:{xs:"none",md:"flex"},flex:".8"}}>
-                    <Typography color="primary" variant="h4">ReMedi</Typography>
+                    <Typography color="primary" variant="h4">HealOn</Typography>
                 </Box>
                 <Button onClick={HomeClick} color="inherit" sx={{display:"flex",flexDirection:{xs:"column",md:"row"}}}>
                     {active==0 ? <HomeIcon color="primary" sx={{display:{xs:"flex",md:"none"}}}/> : <HomeIcon sx={{display:{xs:"flex",md:"none"}}}/>}

@@ -61,7 +61,7 @@ export default function App() {
         <Appbar/>
         <Switch>
           <Route component={Home} exact path="/home"/>
-          <Route component={Home} exact path="/"/>
+          <Route render={() => <Home/>} exact path="/"/>
           <Route render={() => <Account acc={user.email}/>} exact path="/account"/>
           <Route component={Patients} exact path="/patients"/>
           <Route component={PatientDetail} exact path="/patients/:id"/>
