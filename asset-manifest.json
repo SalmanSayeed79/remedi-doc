@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/remedi-doc/static/css/main.977d0ffd.chunk.css",
-    "main.js": "/remedi-doc/static/js/main.ee9f53d1.chunk.js",
-    "main.js.map": "/remedi-doc/static/js/main.ee9f53d1.chunk.js.map",
+    "main.js": "/remedi-doc/static/js/main.bbb8e6cd.chunk.js",
+    "main.js.map": "/remedi-doc/static/js/main.bbb8e6cd.chunk.js.map",
     "runtime-main.js": "/remedi-doc/static/js/runtime-main.6363959e.js",
     "runtime-main.js.map": "/remedi-doc/static/js/runtime-main.6363959e.js.map",
     "static/js/2.6a402e11.chunk.js": "/remedi-doc/static/js/2.6a402e11.chunk.js",
@@ -19,6 +19,6 @@
     "static/js/runtime-main.6363959e.js",
     "static/js/2.6a402e11.chunk.js",
     "static/css/main.977d0ffd.chunk.css",
-    "static/js/main.ee9f53d1.chunk.js"
+    "static/js/main.bbb8e6cd.chunk.js"
   ]
 }
