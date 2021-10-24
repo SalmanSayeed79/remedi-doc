@@ -1,6 +1,6 @@
-import React from 'react'
+import React,{useState} from 'react'
 import { useParams } from 'react-router-dom';
-import {Box,Typography,Avatar,Toolbar,IconButton,Button,Chip} from "@mui/material"
+import {Box,Typography,Avatar,Toolbar,IconButton,Button,Chip,CircularProgress} from "@mui/material"
 import Tab from '@mui/material/Tab';
 import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
@@ -21,15 +21,30 @@ export default function Home({match}) {
     const tabChange=(event,newValue)=>{
         setTabIndex(newValue)
     }
-    //let {param}=useParams()
-    console.log(match.params.id)
+    const [loading,setLoading]=useState(true)
+    const [patientData,setPatientData]=useState(null)
+    const [tests,setTests]=useState(null)
+    const getPatientData=()=>{
+      fetch(`http://151.106.113.197/get-patient?key=${patientKey}`).then(res=>res.json()).then(data=>{
+        setPatientData(data)
+        setTests(Object.keys(data.tests))
+        // let testNames=Object.keys(data.tests)
+        // testNames.forEach(a=>{
+        //   setTests(prev=>[...prev,patientData.tests.name])
+        // })
+        setLoading(false)
+      })
+    }
+    React.useEffect(()=>{
+      getPatientData()
+    },[])
     return (
         <Box > 
-            <Box sx={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",width:"100vw", minHeight:"100vh",backgroundColor:"#f4f4f4",marginTop:{md:"7vh"}}}>
+            {!loading && <Box sx={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",width:"100vw", minHeight:"100vh",backgroundColor:"#f4f4f4",marginTop:{md:"7vh"}}}>
             <Box sx={{display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",marginBottom:"2rem"}}>
                 <Avatar alt="Aslam Miah"  src="/static/images/avatar/1.jpg" sx={{width:{xs:"30vw",md:"7vw"},height:{xs:"30vw",md:"7vw"},bgcolor:"#ff80ab"}}/>
-                <Typography variant="h5">Aslam Miah</Typography>
-                <Typography variant="p" color="#8f8f8f">Rd No 13 , Dhanmondi</Typography>
+                <Typography variant="h5">{patientData.name}</Typography>
+                <Typography variant="p" color="#8f8f8f">{patientData.address}</Typography>
                 <Typography variant="h5"></Typography>
             </Box> 
             <Box sx={{width:"80vw",height:"20vh",border:"1px solid #ff4081",borderRadius:"1rem",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center"}}>
@@ -47,28 +62,29 @@ export default function Home({match}) {
               </Box>
               <TabPanel value="1">
                 <Box sx={{display:"flex",flexDirection:"column"}}>
-                    <Typography variant="p">Age : 36yrs</Typography>
-                    <Typography variant="p">Height : 1.7m</Typography>
-                    <Typography variant="p">Weight : 68kg</Typography>
-                    <Typography variant="p">Gender : Male</Typography>
-                    <Typography variant="p">Address : Dhanmondi,Dhaka 1209</Typography>
+                    <Typography variant="p">Age : {patientData.age}yrs</Typography>
+                    <Typography variant="p">Height : {patientData.height}m</Typography>
+                    <Typography variant="p">Weight : {patientData.weight}</Typography>
+                    <Typography variant="p">Gender : {patientData.sex}</Typography>
+                    <Typography variant="p">Address : {patientData.address}</Typography>
                     
                 </Box>
               </TabPanel>
               <TabPanel value="2">
                 Tests :
-                <Accordion>
+                {tests.map(testName=>(<Accordion>
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
                   aria-controls="panel1a-content"
                   id="panel1a-header"
                 >
-                  <Typography>Blood Sugar Level</Typography>
+                  <Typography>{testName}</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                   <Box sx={{display:"flex"}}>
 
                   <Timeline position="alternate">
+                  {patientData.tests[testName].map(item=>(
                   <TimelineItem>
                     <TimelineSeparator>
                       <TimelineDot color="primary"/>
@@ -76,41 +92,19 @@ export default function Home({match}) {
                     </TimelineSeparator>
                     <TimelineContent>
                         <Box>
-                            <Typography color="primary">Mar 20,2021</Typography>
-                            <Typography>100 mg/dL</Typography>
+                            <Typography color="primary">{item.date}</Typography>
+                            <Typography sx={{color:"#636363"}}>{item.time}</Typography>
+                            <Typography>{item.value} {item.unit}</Typography>
                         </Box>
                         
                     </TimelineContent>
-                  </TimelineItem>
-                  <TimelineItem>
-                    <TimelineSeparator>
-                      <TimelineDot />
-                      <TimelineConnector />
-                    </TimelineSeparator>
-                    <TimelineContent>
-                        <Box>
-                            <Typography color="primary">Mar 20,2021</Typography>
-                            <Typography>100 mg/dL</Typography>
-                        </Box>
-                    </TimelineContent>
-                  </TimelineItem>
-                  <TimelineItem>
-                    <TimelineSeparator>
-                      <TimelineDot />
-                    </TimelineSeparator>
-                    <TimelineContent>
-                        <Box>
-                            <Typography color="primary">Mar 20,2021</Typography>
-                            <Typography>100 mg/dL</Typography>
-                        </Box>
-                    </TimelineContent>
-                  </TimelineItem>
+                  </TimelineItem>))}
                 </Timeline>
 
 
                   </Box>
                 </AccordionDetails>
-              </Accordion>
+              </Accordion>))}
               </TabPanel>
               <TabPanel value="3">
                 <Box sx={{width:"80vw",display:"flex",flexDirection:"column",alignItems:"center"}}>
@@ -125,7 +119,8 @@ export default function Home({match}) {
               </TabPanel>
             </TabContext>
           </Box>
-            </Box>
+            </Box>}
+            {loading && <Box sx={{width:"100vw",height:"100vh",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center"}}><CircularProgress /><Typography>Loading .... </Typography></Box>}
         </Box>
     )
 }
