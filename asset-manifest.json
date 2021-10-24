@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/remedi-doc/static/css/main.977d0ffd.chunk.css",
+    "main.js": "/remedi-doc/static/js/main.87b2c137.chunk.js",
+    "main.js.map": "/remedi-doc/static/js/main.87b2c137.chunk.js.map",
+    "runtime-main.js": "/remedi-doc/static/js/runtime-main.6363959e.js",
+    "runtime-main.js.map": "/remedi-doc/static/js/runtime-main.6363959e.js.map",
+    "static/js/2.6a402e11.chunk.js": "/remedi-doc/static/js/2.6a402e11.chunk.js",
+    "static/js/2.6a402e11.chunk.js.map": "/remedi-doc/static/js/2.6a402e11.chunk.js.map",
+    "static/js/3.f9b45284.chunk.js": "/remedi-doc/static/js/3.f9b45284.chunk.js",
+    "static/js/3.f9b45284.chunk.js.map": "/remedi-doc/static/js/3.f9b45284.chunk.js.map",
+    "index.html": "/remedi-doc/index.html",
+    "static/css/main.977d0ffd.chunk.css.map": "/remedi-doc/static/css/main.977d0ffd.chunk.css.map",
+    "static/js/2.6a402e11.chunk.js.LICENSE.txt": "/remedi-doc/static/js/2.6a402e11.chunk.js.LICENSE.txt",
+    "static/media/logo.6ce24c58.svg": "/remedi-doc/static/media/logo.6ce24c58.svg",
+    "static/media/background.css": "/remedi-doc/static/media/polygon-scatter-haikei.c6204df6.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.6363959e.js",
+    "static/js/2.6a402e11.chunk.js",
+    "static/css/main.977d0ffd.chunk.css",
+    "static/js/main.87b2c137.chunk.js"
+  ]
+}
